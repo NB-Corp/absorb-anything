@@ -12,7 +12,7 @@ absorb analysis new "Adopt the scheduler?" --for-source qiskit
 absorb knowledge add pattern "Pulse schedules are immutable plans"
 ```
 
-> Status: the CLI is being extracted from [Assay v0.14.0](https://github.com/X-T-E-R/assay) and is not on npm yet. The commands above are the committed surface, not a mockup: they exist in Assay today under the `assay source` prefix.
+> Status: pre-release, not on npm yet. The commands above are the committed surface for the first release, not a mockup.
 
 ## The loop
 
@@ -62,7 +62,7 @@ Mutating commands end with a one-line reminder of the rule most often broken, an
 
 ## Part of a pair
 
-Absorb Anything is the study half of a two-tool suite: [`build-your-own`](../build-your-own) manages what you build from the evidence — tasks, roadmaps, specs, systems — on the same on-disk workspace format. Use either alone, or both together. [Assay](https://github.com/X-T-E-R/assay) remains the integrated workbench and will become the thin layer that ties the two halves' records together.
+Absorb Anything is the study half of a two-tool suite: [`own-work`](../own-work) manages what you build from the evidence — tasks, roadmaps, specs, systems — on the same on-disk workspace format. Use either alone, or both together.
 
 **Absorb Anything. Build Your Own.**
 

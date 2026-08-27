@@ -12,7 +12,7 @@ absorb analysis new "调度器值得采用吗" --for-source qiskit
 absorb knowledge add pattern "Pulse schedule 是不可变的计划对象"
 ```
 
-> 状态：CLI 正在从 [Assay v0.14.0](https://github.com/X-T-E-R/assay) 中拆出，尚未发布到 npm。上面的命令面是既定契约而非效果图——它们今天就在 Assay 里以 `assay source` 前缀存在。
+> 状态：预发布，尚未上 npm。上面的命令面是首个版本的既定契约，不是效果图。
 
 ## 一个闭环
 
@@ -60,7 +60,7 @@ absorb explain source   # 对象为什么存在、何时不该用、常见误用
 
 ## 成对使用
 
-Absorb Anything 是双工具套件的研读半边：[`build-your-own`](../build-your-own) 在同一套磁盘格式上管理你基于证据去建设的东西——task、roadmap、spec、system。单用一半或两个都装均可。[Assay](https://github.com/X-T-E-R/assay) 继续作为一体化工作台存在，未来收缩为把两半记录缝合起来的薄层。
+Absorb Anything 是双工具套件的研读半边：[`own-work`](../own-work) 在同一套磁盘格式上管理你基于证据去建设的东西——task、roadmap、spec、system。单用一半或两个都装均可。
 
 **Absorb Anything. Build Your Own.**
 
