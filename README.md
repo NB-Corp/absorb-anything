@@ -5,7 +5,7 @@
 Absorb Anything is a local-first CLI for people (and AI agents) who read other people's code for a living. Point it at a repository you're evaluating, studying, or about to build on, and it gives that source a **home**: a place where checkouts, observations, analyses, and distilled knowledge accumulate, instead of evaporating when the terminal closes and the next chat session starts from zero.
 
 ```bash
-absorb init                                      # a workspace for your evidence
+absorb init                                      # one .absorb/ folder, right in your repo
 absorb add https://github.com/qiskit/qiskit      # give a codebase a home
 absorb log qiskit                                # how it changed since you last looked
 absorb analysis new "Adopt the scheduler?" --for-source qiskit
@@ -23,7 +23,7 @@ sources/ ──▶ analyses/ ──▶ knowledge/
  absorb it    decide on it    keep what survived
 ```
 
-A **source** is external code kept where its origin and its changes stay readable — a git checkout that syncs, or a one-time copy. An **analysis** is the working surface where you read it and reach a decision. **Knowledge** is what survived the decision and is worth reusing. Files all the way down: no server, no database, no account.
+A **source** is external code kept where its origin and its changes stay readable — a git checkout that syncs, or a one-time copy. An **analysis** is the working surface where you read it and reach a decision. **Knowledge** is what survived the decision and is worth reusing. Files all the way down: no server, no database, no account. Everything sits in a single `.absorb/` directory inside the repo you already work in; if evidence deserves a dedicated repo of its own, that's `absorb init --standalone`.
 
 ## Clone once. Reference everywhere.
 

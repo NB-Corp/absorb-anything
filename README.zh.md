@@ -5,7 +5,7 @@
 这是一个 local-first 的 CLI，写给靠读别人代码吃饭的人——以及 AI agent。把它指向一个你在评估、研究或准备借鉴的仓库，它会给这个来源一个**家**：checkout、观察记录、分析和沉淀下来的知识都攒在这里，而不是随着终端关闭、下一个对话从零开始而蒸发。
 
 ```bash
-absorb init                                      # 建一个证据工作区
+absorb init                                      # 在现有仓库里落一个 .absorb/
 absorb add https://github.com/qiskit/qiskit      # 给一个代码库安家
 absorb log qiskit                                # 上次读完之后它变了什么
 absorb analysis new "调度器值得采用吗" --for-source qiskit
@@ -21,7 +21,7 @@ sources/ ──▶ analyses/ ──▶ knowledge/
   吸纳它       对它下判断      留下经得住的
 ```
 
-**Source** 是保持来源与变化可读的外部代码：会同步的 git checkout，或一次性拷贝。**Analysis** 是读代码、下判断的工作台面。**Knowledge** 是判断之后活下来、值得复用的东西。从头到尾都是文件：没有服务、没有数据库、不用注册。
+**Source** 是保持来源与变化可读的外部代码：会同步的 git checkout，或一次性拷贝。**Analysis** 是读代码、下判断的工作台面。**Knowledge** 是判断之后活下来、值得复用的东西。从头到尾都是文件：没有服务、没有数据库、不用注册。所有记录都收在你现有仓库的一个 `.absorb/` 目录里；想给证据单开一个专用仓，`absorb init --standalone`。
 
 ## Clone 一次，处处引用
 
