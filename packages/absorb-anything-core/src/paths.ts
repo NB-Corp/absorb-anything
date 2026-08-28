@@ -1,6 +1,8 @@
+import { realpath as realpathWithCallback } from "node:fs";
 import { stat } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { promisify } from "node:util";
 
 import { LEGACY_ENVELOPE_DIR, PREFERRED_ENVELOPE_DIR } from "./constants.js";
 import { FrameworkAlreadyExistsError, FrameworkError } from "./errors.js";
@@ -26,8 +28,26 @@ async function isFile(target: string): Promise<boolean> {
   }
 }
 
-function isUserGlobalConfigRoot(root: string): boolean {
-  return path.resolve(root).toLowerCase() === path.resolve(os.homedir()).toLowerCase();
+// The OS resolver, not the JS one: only it expands Windows 8.3 short names.
+const realpathNative = promisify(realpathWithCallback.native);
+
+async function canonicalPath(target: string): Promise<string> {
+  const resolved = path.resolve(target);
+  try {
+    return await realpathNative(resolved);
+  } catch {
+    return resolved;
+  }
+}
+
+/**
+ * The home directory holds machine-local config (the clone registry), not a
+ * workspace. Comparison must go through the real path: Windows hands out 8.3
+ * short names (C:\Users\RUNNER~1) that never string-match the long home.
+ */
+async function isUserGlobalConfigRoot(root: string): Promise<boolean> {
+  const [candidate, home] = await Promise.all([canonicalPath(root), canonicalPath(os.homedir())]);
+  return candidate.toLowerCase() === home.toLowerCase();
 }
 
 export function relativeDisplayPath(targetPath: string, root: string): string {
@@ -84,14 +104,20 @@ export async function discoverFrameworkRoot(start: string): Promise<string> {
     const legacy = path.join(current, LEGACY_ENVELOPE_DIR);
     if (
       (await exists(preferred)) &&
-      !(isUserGlobalConfigRoot(current) && !(await exists(path.join(preferred, "manifest.json"))))
+      !(
+        (await isUserGlobalConfigRoot(current)) &&
+        !(await exists(path.join(preferred, "manifest.json")))
+      )
     ) {
       await loadManifest(current);
       return current;
     }
     if (
       (await exists(legacy)) &&
-      !(isUserGlobalConfigRoot(current) && !(await exists(path.join(legacy, "manifest.json"))))
+      !(
+        (await isUserGlobalConfigRoot(current)) &&
+        !(await exists(path.join(legacy, "manifest.json")))
+      )
     ) {
       await loadManifest(current);
       return current;
@@ -109,12 +135,12 @@ export async function assertNoAncestorWorkspaceAuthority(target: string): Promis
     if (
       ((await exists(path.join(candidate, PREFERRED_ENVELOPE_DIR))) &&
         !(
-          isUserGlobalConfigRoot(candidate) &&
+          (await isUserGlobalConfigRoot(candidate)) &&
           !(await exists(path.join(candidate, PREFERRED_ENVELOPE_DIR, "manifest.json")))
         )) ||
       ((await exists(path.join(candidate, LEGACY_ENVELOPE_DIR))) &&
         !(
-          isUserGlobalConfigRoot(candidate) &&
+          (await isUserGlobalConfigRoot(candidate)) &&
           !(await exists(path.join(candidate, LEGACY_ENVELOPE_DIR, "manifest.json")))
         ))
     ) {
