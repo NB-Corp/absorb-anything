@@ -15,6 +15,10 @@ function keyFor(root: string): string {
   return process.platform === "win32" ? resolved.toLowerCase() : resolved;
 }
 
+function authorityKey(kind: "envelope-migration" | "workspace-mutation", root: string): string {
+  return `${kind}:${keyFor(root)}`;
+}
+
 async function tryAcquire(lock: string, token: string): Promise<boolean> {
   try {
     await mkdir(lock);
@@ -50,15 +54,24 @@ async function stale(lock: string): Promise<boolean> {
       return error instanceof Error && "code" in error && error.code === "ESRCH";
     }
   } catch (error) {
-    return error instanceof Error && "code" in error && error.code === "ENOENT";
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") return false;
+    throw error;
   }
 }
 
 async function withCoordinationLock<T>(lock: string, callback: () => Promise<T>): Promise<T> {
-  await mkdir(path.dirname(lock), { recursive: true });
   const token = randomUUID();
   const deadline = Date.now() + WAIT_MS;
-  while (!(await tryAcquire(lock, token))) {
+  let acquired = false;
+  while (!acquired) {
+    await mkdir(path.dirname(lock), { recursive: true });
+    try {
+      acquired = await tryAcquire(lock, token);
+    } catch (error) {
+      if (error instanceof Error && "code" in error && error.code === "ENOENT") continue;
+      throw error;
+    }
+    if (acquired) break;
     if (await stale(lock)) {
       await rm(lock, { recursive: true, force: true });
       continue;
@@ -84,35 +97,48 @@ async function withCoordinationLock<T>(lock: string, callback: () => Promise<T>)
   return outcome.value;
 }
 
+async function withReentrantCoordination<T>(
+  authority: string,
+  lock: string,
+  callback: () => Promise<T>,
+): Promise<T> {
+  const current = held.getStore();
+  if (current?.has(authority)) return callback();
+  return withCoordinationLock(lock, () =>
+    held.run(new Set([...(current ?? []), authority]), callback),
+  );
+}
+
 /** Serialize writers from both products without importing object-specific storage. */
 export async function withWorkspaceMutationCoordination<T>(
   rootInput: string,
   callback: () => Promise<T>,
 ): Promise<T> {
   const root = path.resolve(rootInput);
-  const key = keyFor(root);
-  const current = held.getStore();
-  if (current?.has(key)) return callback();
-  const context = await resolveEnvelopeContext(root);
-  const coordination = path.join(context.path, "coordination");
-  await mkdir(coordination, { recursive: true });
-  const lock = path.join(coordination, "workspace-mutation");
-  try {
-    return await withCoordinationLock(lock, () =>
-      held.run(new Set([...(current ?? []), key]), callback),
-    );
-  } finally {
-    await rmdir(coordination).catch((error: unknown) => {
-      if (
-        !(
-          error instanceof Error &&
-          "code" in error &&
-          ["ENOENT", "ENOTEMPTY", "EEXIST"].includes(String(error.code))
+  return withEnvelopeMigrationCoordination(root, async () => {
+    const context = await resolveEnvelopeContext(root);
+    const coordination = path.join(context.path, "coordination");
+    await mkdir(coordination, { recursive: true });
+    const lock = path.join(coordination, "workspace-mutation");
+    try {
+      return await withReentrantCoordination(
+        authorityKey("workspace-mutation", root),
+        lock,
+        callback,
+      );
+    } finally {
+      await rmdir(coordination).catch((error: unknown) => {
+        if (
+          !(
+            error instanceof Error &&
+            "code" in error &&
+            ["ENOENT", "ENOTEMPTY", "EEXIST"].includes(String(error.code))
+          )
         )
-      )
-        throw error;
-    });
-  }
+          throw error;
+      });
+    }
+  });
 }
 
 /** Coordinate a rename without placing transient state inside either envelope tree. */
@@ -121,5 +147,9 @@ export async function withEnvelopeMigrationCoordination<T>(
   callback: () => Promise<T>,
 ): Promise<T> {
   const root = path.resolve(rootInput);
-  return withCoordinationLock(path.join(root, ".absorb-envelope-migration.lock"), callback);
+  return withReentrantCoordination(
+    authorityKey("envelope-migration", root),
+    path.join(root, ".absorb-envelope-migration.lock"),
+    callback,
+  );
 }
