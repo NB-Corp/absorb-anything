@@ -1,6 +1,6 @@
 # Absorb Anything
 
-**Absorb any codebase into durable, reusable evidence.**
+**Read someone else's codebase once. Keep what you learned.**
 
 Absorb Anything is a local-first CLI for people (and AI agents) who read other people's code for a living. Point it at a repository you're evaluating, studying, or about to build on, and it gives that source a **home**: a place where checkouts, observations, analyses, and distilled knowledge accumulate, instead of evaporating when the terminal closes and the next chat session starts from zero.
 
@@ -12,7 +12,23 @@ absorb analysis new "Adopt the scheduler?" --for-source qiskit
 absorb knowledge add pattern "Pulse schedules are immutable plans"
 ```
 
-> Status: pre-release, not on npm yet. The commands above are the committed surface for the first release, not a mockup.
+> Status: 0.1.0, pre-release, not on npm yet. Build from source with the steps below. The commands above are the committed surface for the first release, not a mockup.
+
+## Install
+
+Requires Node >= 22.13 and pnpm 11.
+
+```bash
+git clone https://github.com/NB-Corp/absorb-anything
+cd absorb-anything
+pnpm install && pnpm build
+```
+
+The CLI is now at `packages/absorb-anything/dist/cli.js`. Put it on your PATH however you like — an alias is enough:
+
+```bash
+alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"
+```
 
 ## The loop
 
@@ -24,6 +40,22 @@ sources/ ──▶ analyses/ ──▶ knowledge/
 ```
 
 A **source** is external code kept where its origin and its changes stay readable — a git checkout that syncs, or a one-time copy. An **analysis** is the working surface where you read it and reach a decision. **Knowledge** is what survived the decision and is worth reusing. Files all the way down: no server, no database, no account. Everything sits in a single `.absorb/` directory inside the repo you already work in; if evidence deserves a dedicated repo of its own, that's `absorb init --standalone`.
+
+Absorbing a source records where it came from and what state you saw it in:
+
+```console
+$ absorb add https://github.com/sindresorhus/slugify
+Added source: .absorb/sources/slugify
+Observation: .absorb/sources/slugify/observations/20260828-7c318bd1aa4b.yaml
+Checkout: .absorb/sources/slugify/checkout
+Materials: .absorb/sources/slugify/materials
+Hint: Observe changes with `absorb sync`; preserve decision-critical bytes with `absorb capture`.
+
+$ absorb log slugify
+Source log: slugify
+2026-08-28T19:59:18+08:00 add normal 20260828-7c318bd1aa4b
+  checkout-backed source added from https://github.com/sindresorhus/slugify
+```
 
 ## Clone once. Reference everywhere.
 
@@ -58,13 +90,13 @@ absorb prime            # one screen: what each object is for, and the current w
 absorb explain source   # why an object exists, when not to use it, common misuses
 ```
 
-Mutating commands end with a one-line reminder of the rule most often broken, and error messages state the correct model instead of just refusing. Session starts with `absorb prime`; everything downstream stays on-model.
+Mutating commands end with a one-line reminder of the rule most often broken, and error messages state the correct model instead of just refusing. Start a session with `absorb prime` and the agent gets the semantics before it gets the chance to misread them.
 
 ## Part of a pair
 
-Absorb Anything is the study half of a two-tool suite: its sibling package `own-work` manages what you build from the evidence — tasks, roadmaps, specs, systems — on the same on-disk workspace format. Use either alone, or both together.
+Absorb Anything is the study half of a two-tool suite. [`own-work`](https://github.com/NB-Corp/own-work) is the build half: tasks, roadmaps, specs, and the systems you're building, on the same on-disk workspace format. Use either alone, or run both over one `.absorb/` directory.
 
-**Absorb Anything. Build Your Own.**
+**Absorb anything. Own your work.**
 
 ## License
 

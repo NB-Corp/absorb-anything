@@ -2,6 +2,22 @@
   "name": "absorb-anything",
   "version": "0.1.0",
   "description": "CLI for absorbing external material into evidence, analysis, and reusable knowledge.",
+  "keywords": [
+    "cli",
+    "code-reading",
+    "evidence",
+    "provenance",
+    "research",
+    "local-first",
+    "ai-agent"
+  ],
+  "homepage": "https://github.com/NB-Corp/absorb-anything#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NB-Corp/absorb-anything.git",
+    "directory": "packages/absorb-anything"
+  },
+  "bugs": "https://github.com/NB-Corp/absorb-anything/issues",
   "license": "MIT",
   "type": "module",
   "engines": { "node": ">=22.13.0" },

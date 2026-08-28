@@ -1,6 +1,6 @@
 # Absorb Anything
 
-**把任何代码库吸纳成可沉淀、可复用的证据。**
+**别人的代码库，读一遍就够了。**
 
 这是一个 local-first 的 CLI，写给靠读别人代码吃饭的人——以及 AI agent。把它指向一个你在评估、研究或准备借鉴的仓库，它会给这个来源一个**家**：checkout、观察记录、分析和沉淀下来的知识都攒在这里，而不是随着终端关闭、下一个对话从零开始而蒸发。
 
@@ -12,7 +12,23 @@ absorb analysis new "调度器值得采用吗" --for-source qiskit
 absorb knowledge add pattern "Pulse schedule 是不可变的计划对象"
 ```
 
-> 状态：预发布，尚未上 npm。上面的命令面是首个版本的既定契约，不是效果图。
+> 状态：0.1.0 预发布，尚未上 npm，请按下面的步骤从源码构建。上面的命令面是首个版本的既定契约，不是效果图。
+
+## 安装
+
+需要 Node >= 22.13 与 pnpm 11。
+
+```bash
+git clone https://github.com/NB-Corp/absorb-anything
+cd absorb-anything
+pnpm install && pnpm build
+```
+
+CLI 在 `packages/absorb-anything/dist/cli.js`。怎么挂上 PATH 随你，一个 alias 就够：
+
+```bash
+alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"
+```
 
 ## 一个闭环
 
@@ -22,6 +38,22 @@ sources/ ──▶ analyses/ ──▶ knowledge/
 ```
 
 **Source** 是保持来源与变化可读的外部代码：会同步的 git checkout，或一次性拷贝。**Analysis** 是读代码、下判断的工作台面。**Knowledge** 是判断之后活下来、值得复用的东西。从头到尾都是文件：没有服务、没有数据库、不用注册。所有记录都收在你现有仓库的一个 `.absorb/` 目录里；想给证据单开一个专用仓，`absorb init --standalone`。
+
+吸纳一个来源时，它从哪来、你看到的是什么状态，都会记下：
+
+```console
+$ absorb add https://github.com/sindresorhus/slugify
+Added source: .absorb/sources/slugify
+Observation: .absorb/sources/slugify/observations/20260828-7c318bd1aa4b.yaml
+Checkout: .absorb/sources/slugify/checkout
+Materials: .absorb/sources/slugify/materials
+Hint: Observe changes with `absorb sync`; preserve decision-critical bytes with `absorb capture`.
+
+$ absorb log slugify
+Source log: slugify
+2026-08-28T19:59:18+08:00 add normal 20260828-7c318bd1aa4b
+  checkout-backed source added from https://github.com/sindresorhus/slugify
+```
 
 ## Clone 一次，处处引用
 
@@ -56,13 +88,13 @@ absorb prime            # 一屏：每个对象是干什么的 + 当前工作区
 absorb explain source   # 对象为什么存在、何时不该用、常见误用
 ```
 
-写操作结尾附一行最常被违反的规则，报错直接陈述正确模型而不是光拒绝。会话开局跑 `absorb prime`，后面就不容易跑偏。
+写操作结尾附一行最常被违反的规则，报错直接陈述正确模型而不是光拒绝。会话开局跑一次 `absorb prime`，agent 在有机会误读之前就拿到了语义。
 
 ## 成对使用
 
-Absorb Anything 是双工具套件的研读半边：[`own-work`](../own-work) 在同一套磁盘格式上管理你基于证据去建设的东西——task、roadmap、spec、system。单用一半或两个都装均可。
+Absorb Anything 是双工具套件的研读半边。[`own-work`](https://github.com/NB-Corp/own-work) 是建设半边：task、roadmap、spec 与你正在建的 system，跑在同一套磁盘格式上。单用一半，或者让两个工具共用同一个 `.absorb/` 目录。
 
-**Absorb Anything. Build Your Own.**
+**Absorb anything. Build Your Own.**
 
 ## License
 

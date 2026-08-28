@@ -2,6 +2,14 @@
   "name": "absorb-anything-core",
   "version": "0.1.0",
   "description": "Envelope, Source, Analysis, and Knowledge APIs for Absorb Anything.",
+  "keywords": ["absorb-anything", "evidence", "provenance", "workspace", "local-first"],
+  "homepage": "https://github.com/NB-Corp/absorb-anything#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NB-Corp/absorb-anything.git",
+    "directory": "packages/absorb-anything-core"
+  },
+  "bugs": "https://github.com/NB-Corp/absorb-anything/issues",
   "license": "MIT",
   "type": "module",
   "engines": { "node": ">=22.13.0" },

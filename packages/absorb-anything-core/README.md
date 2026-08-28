@@ -1,6 +1,6 @@
 # absorb-anything-core
 
-Shared workspace infrastructure for the Absorb Anything suite. You probably want the [`absorb-anything`](https://www.npmjs.com/package/absorb-anything) CLI instead — this package is its engine, also consumed by the suite's build half, `own-work`.
+Shared workspace infrastructure for the Absorb Anything suite. You probably want the [`absorb-anything`](https://github.com/NB-Corp/absorb-anything) CLI instead — this package is its engine, also consumed by the suite's build half, [`own-work`](https://github.com/NB-Corp/own-work).
 
 It owns the on-disk workspace contract the suite's tools agree on:
 
