@@ -1,0 +1,4 @@
+interface:
+  display_name: "Absorb Anything"
+  short_description: "Absorb external code into durable evidence"
+  default_prompt: "Use $absorb-anything to study an external codebase in this folder: give it a Source home, analyze it to a decision, and keep what survived as knowledge."
