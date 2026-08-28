@@ -1,0 +1,22 @@
+{
+  "name": "absorb-anything-core",
+  "version": "0.1.0",
+  "description": "Envelope, Source, Analysis, and Knowledge APIs for Absorb Anything.",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=22.13.0" },
+  "exports": { ".": "./dist/index.js", "./schemas": "./dist/schemas/index.js" },
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "templates"],
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",
+    "test": "vitest run --config vitest.config.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "execa": "^9.5.0",
+    "fs-extra": "^11.2.0",
+    "yaml": "^2.6.1",
+    "zod": "^3.24.1"
+  }
+}

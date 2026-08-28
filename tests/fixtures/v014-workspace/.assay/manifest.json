@@ -1,0 +1,88 @@
+{
+  "__schema": 4,
+  "framework_version": "0.14.0",
+  "layout": {
+    "entries": [
+      {
+        "kind": "directory",
+        "path": "sources",
+        "purpose": "External material, tracked or copied"
+      },
+      {
+        "kind": "directory",
+        "path": "analyses/references",
+        "purpose": "Analysis cards for external systems"
+      },
+      {
+        "kind": "directory",
+        "path": "analyses/gaps",
+        "purpose": "Gaps between an external system and this workspace"
+      },
+      {
+        "kind": "directory",
+        "path": "analyses/patterns",
+        "purpose": "Candidate reusable patterns awaiting validation"
+      },
+      {
+        "kind": "directory",
+        "path": "analyses/templates",
+        "purpose": "Blank analysis forms"
+      },
+      {
+        "kind": "file",
+        "path": "sources/README.md",
+        "purpose": ""
+      },
+      {
+        "kind": "file",
+        "path": "analyses/README.md",
+        "purpose": ""
+      },
+      {
+        "kind": "file",
+        "path": "analyses/references/.gitkeep",
+        "purpose": ""
+      },
+      {
+        "kind": "file",
+        "path": "analyses/gaps/.gitkeep",
+        "purpose": ""
+      },
+      {
+        "kind": "file",
+        "path": "analyses/patterns/.gitkeep",
+        "purpose": ""
+      },
+      {
+        "kind": "file",
+        "path": "analyses/templates/source-analysis-card.md",
+        "purpose": ""
+      },
+      {
+        "kind": "file",
+        "path": "analyses/templates/gap-analysis.md",
+        "purpose": ""
+      },
+      {
+        "kind": "file",
+        "path": "analyses/templates/pattern-card.md",
+        "purpose": ""
+      }
+    ],
+    "mode": "standalone",
+    "paths": {
+      "analyses": "analyses",
+      "backups": ".assay/backups",
+      "events": ".assay/events",
+      "knowledge": "knowledge",
+      "manifest": ".assay/manifest.json",
+      "sources": "sources",
+      "systems": "systems",
+      "systems_registry": ".assay/systems-registry.json"
+    },
+    "privacy": "tracked",
+    "state_root": ".assay",
+    "version": 8,
+    "work_root": "."
+  }
+}

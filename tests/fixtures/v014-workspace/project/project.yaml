@@ -1,0 +1,6 @@
+__schema: 1
+id: project-assay
+name: Assay
+authority:
+  mode: native
+  pointer: README.md

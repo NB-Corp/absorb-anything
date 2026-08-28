@@ -1,5 +1,10 @@
 node_modules/
 dist/
+packages/*/dist/
+packages/*/coverage/
+coverage/
+*.tgz
+.pnpm-store/
 *.log
 .DS_Store
 Thumbs.db
