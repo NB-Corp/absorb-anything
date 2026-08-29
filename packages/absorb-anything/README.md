@@ -1,12 +1,12 @@
 # Absorb Anything
 
-**Read someone else's codebase once. Keep what you learned.**
+**Study anything. Keep everything you learn.**
 
-Absorb Anything is a local-first CLI for people (and AI agents) who read other people's code for a living. Point it at a repository you're evaluating, studying, or about to build on, and it gives that source a **home**: a place where checkouts, observations, analyses, and distilled knowledge accumulate, instead of evaporating when the terminal closes and the next chat session starts from zero.
+Absorb Anything is a local-first CLI for people (and AI agents) who are always absorbing something new — a codebase to evaluate, a library to build on, a reference implementation, a paper and its companion repo. Point it at whatever you're studying and that material gets a **home**: a place where checkouts, observations, analyses, and distilled knowledge accumulate, instead of evaporating when the terminal closes and the next chat session starts from zero.
 
 ```bash
 absorb init                                      # one .absorb/ folder, right in your repo
-absorb add https://github.com/qiskit/qiskit      # give a codebase a home
+absorb add https://github.com/qiskit/qiskit      # a repo URL or any folder — give it a home
 absorb log qiskit                                # how it changed since you last looked
 absorb analysis new "Adopt the scheduler?" --for-source qiskit
 absorb knowledge add pattern "Pulse schedules are immutable plans"
@@ -39,7 +39,7 @@ sources/ ──▶ analyses/ ──▶ knowledge/
  absorb it    decide on it    keep what survived
 ```
 
-A **source** is external code kept where its origin and its changes stay readable — a git checkout that syncs, or a one-time copy. An **analysis** is the working surface where you read it and reach a decision. **Knowledge** is what survived the decision and is worth reusing. Files all the way down: no server, no database, no account. Everything sits in a single `.absorb/` directory inside the repo you already work in; if evidence deserves a dedicated repo of its own, that's `absorb init --standalone`.
+A **source** is any external material kept where its origin and its changes stay readable — a git checkout that syncs, or a one-time copy of anything else. An **analysis** is the working surface where you read it and reach a decision. **Knowledge** is what survived the decision and is worth reusing. Files all the way down: no server, no database, no account. Everything sits in a single `.absorb/` directory inside the repo you already work in; if evidence deserves a dedicated repo of its own, that's `absorb init --standalone`.
 
 Absorbing a source records where it came from and what state you saw it in:
 
@@ -96,7 +96,7 @@ Mutating commands end with a one-line reminder of the rule most often broken, an
 
 Absorb Anything is the study half of a two-tool suite. [`own-work`](https://github.com/NB-Corp/own-work) is the build half: tasks, roadmaps, specs, and the systems you're building, on the same on-disk workspace format. Use either alone, or run both over one `.absorb/` directory.
 
-**Absorb anything. Own your work.**
+**Absorb anything. Build Your Own.**
 
 ## License
 

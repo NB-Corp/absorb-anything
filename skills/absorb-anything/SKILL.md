@@ -5,7 +5,7 @@ description: "Use when studying, evaluating, or absorbing external codebases and
 
 # Absorb Anything
 
-Absorb external code into durable, reusable evidence. One workspace gives each studied source a home — checkout, observation ledger, analyses, and distilled knowledge accumulate in plain files instead of evaporating with the session.
+Absorb anything you study — code, papers, reference projects — into durable, reusable evidence. One workspace gives each studied source a home — checkout, observation ledger, analyses, and distilled knowledge accumulate in plain files instead of evaporating with the session.
 
 ## Prerequisites
 

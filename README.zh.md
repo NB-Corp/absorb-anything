@@ -1,12 +1,12 @@
 # Absorb Anything
 
-**别人的代码库，读一遍就够了。**
+**什么都能吸纳，学到的都留下。**
 
-这是一个 local-first 的 CLI，写给靠读别人代码吃饭的人——以及 AI agent。把它指向一个你在评估、研究或准备借鉴的仓库，它会给这个来源一个**家**：checkout、观察记录、分析和沉淀下来的知识都攒在这里，而不是随着终端关闭、下一个对话从零开始而蒸发。
+这是一个 local-first 的 CLI，写给一直在吸纳新东西的人——以及 AI agent。要评估的代码库、准备借鉴的库、一份参考实现、论文和它的配套仓库：把它指向你正在研读的任何材料，这份材料就有了一个**家**：checkout、观察记录、分析和沉淀下来的知识都攒在这里，而不是随着终端关闭、下一个对话从零开始而蒸发。
 
 ```bash
 absorb init                                      # 在现有仓库里落一个 .absorb/
-absorb add https://github.com/qiskit/qiskit      # 给一个代码库安家
+absorb add https://github.com/qiskit/qiskit      # 仓库 URL 或任意文件夹，给它安个家
 absorb log qiskit                                # 上次读完之后它变了什么
 absorb analysis new "调度器值得采用吗" --for-source qiskit
 absorb knowledge add pattern "Pulse schedule 是不可变的计划对象"
@@ -37,7 +37,7 @@ sources/ ──▶ analyses/ ──▶ knowledge/
   吸纳它       对它下判断      留下经得住的
 ```
 
-**Source** 是保持来源与变化可读的外部代码：会同步的 git checkout，或一次性拷贝。**Analysis** 是读代码、下判断的工作台面。**Knowledge** 是判断之后活下来、值得复用的东西。从头到尾都是文件：没有服务、没有数据库、不用注册。所有记录都收在你现有仓库的一个 `.absorb/` 目录里；想给证据单开一个专用仓，`absorb init --standalone`。
+**Source** 是任何保持来源与变化可读的外部材料：会同步的 git checkout，或者其他任何东西的一次性拷贝。**Analysis** 是读代码、下判断的工作台面。**Knowledge** 是判断之后活下来、值得复用的东西。从头到尾都是文件：没有服务、没有数据库、不用注册。所有记录都收在你现有仓库的一个 `.absorb/` 目录里；想给证据单开一个专用仓，`absorb init --standalone`。
 
 吸纳一个来源时，它从哪来、你看到的是什么状态，都会记下：
 
