@@ -27,6 +27,7 @@ import {
   loadManagedFiles,
   loadManifest,
   migrateEnvelope,
+  migrateEnvelopeUncoordinated,
   resolveSourceHome,
   setUpdatePlanProbeForTests,
   unlinkSource,
@@ -127,6 +128,93 @@ describe("physical envelope projection", () => {
       "Selected envelope is missing manifest.json",
     );
     expect(await loadManifest(parent)).not.toBeNull();
+  });
+});
+
+describe("a library caller that owns .assay as its native envelope", () => {
+  it("runs the whole study lifecycle in place under .assay", async () => {
+    const root = await temporary("absorb-native-assay");
+    const result = await initFramework({
+      target: root,
+      name: "native-assay",
+      standalone: true,
+      envelope: ".assay",
+    });
+
+    expect(result.mode).toBe("standalone");
+    await expect(stat(path.join(root, ".absorb"))).rejects.toMatchObject({ code: "ENOENT" });
+    const raw = JSON.parse(await readFile(path.join(root, ".assay", "manifest.json"), "utf8"));
+    expect(raw).toMatchObject({
+      __schema: 4,
+      framework_version: "0.14.0",
+      layout: { version: 8, mode: "standalone", state_root: ".assay", work_root: "." },
+    });
+    expect(JSON.stringify(raw)).not.toContain(".absorb");
+    expect((await getFrameworkStatus({ root })).envelope).toBe(".assay");
+
+    const input = await temporary("absorb-native-assay-input");
+    await writeFile(path.join(input, "material.txt"), "material\n", "utf8");
+    await addSource({ root, source: input, alias: "native" });
+    await captureSource({ root, alias: "native" });
+    const analysis = await createAnalysis({ root, title: "Native review", forSource: "native" });
+    await closeAnalysis({ root, path: analysis.path, exit: "adopt" });
+    await addKnowledge({ root, type: "guide", title: "Native guide" });
+
+    const consumer = await temporary("absorb-native-assay-consumer");
+    await initFramework({
+      target: consumer,
+      name: "consumer",
+      standalone: true,
+      envelope: ".assay",
+    });
+    await linkSource({ root: consumer, workspace: root, source: "native", alias: "linked" });
+    expect((await resolveSourceHome({ root: consumer, alias: "linked" })).homeWorkspace).toBe(root);
+
+    expect(await stat(path.join(root, "sources", "native", "source.yaml"))).toBeTruthy();
+    expect((await getSourceStatus({ root, alias: "native" })).sources).toHaveLength(1);
+    expect((await checkFramework({ root })).ok).toBe(true);
+    expect((await checkFramework({ root: consumer })).ok).toBe(true);
+    await expect(stat(path.join(root, ".absorb"))).rejects.toMatchObject({ code: "ENOENT" });
+  });
+
+  it("keeps overlay work inside .assay without touching repository-root files", async () => {
+    const root = await temporary("absorb-native-assay-overlay");
+    const protectedFile = path.join(root, "README.md");
+    await writeFile(protectedFile, "existing product readme\n", "utf8");
+
+    await initFramework({ target: root, name: "native-overlay", envelope: ".assay" });
+
+    expect(await readFile(protectedFile, "utf8")).toBe("existing product readme\n");
+    expect(await stat(path.join(root, ".assay", "sources"))).toBeTruthy();
+    await expect(stat(path.join(root, "sources"))).rejects.toMatchObject({ code: "ENOENT" });
+    await expect(stat(path.join(root, ".absorb"))).rejects.toMatchObject({ code: "ENOENT" });
+    expect((await checkFramework({ root })).ok).toBe(true);
+    expect((await getFrameworkStatus({ root })).zones).toContainEqual({
+      path: ".assay/sources",
+      purpose: "External material and observation history",
+      files: 1,
+    });
+  });
+
+  it("renames a freshly created .assay envelope once and keeps it usable", async () => {
+    const root = await temporary("absorb-native-assay-migrate");
+    await initFramework({
+      target: root,
+      name: "native-migrate",
+      standalone: true,
+      envelope: ".assay",
+    });
+    const before = await fileFacts(path.join(root, ".assay"));
+
+    expect((await migrateEnvelopeUncoordinated(root)).changed).toBe(true);
+    await expect(stat(path.join(root, ".assay"))).rejects.toMatchObject({ code: "ENOENT" });
+    expect(await fileFacts(path.join(root, ".absorb"))).toEqual(before);
+    expect((await migrateEnvelopeUncoordinated(root)).changed).toBe(false);
+    expect(await fileFacts(path.join(root, ".absorb"))).toEqual(before);
+
+    expect((await getFrameworkStatus({ root })).envelope).toBe(".absorb");
+    await addKnowledge({ root, type: "pattern", title: "After rename" });
+    expect((await checkFramework({ root })).ok).toBe(true);
   });
 });
 

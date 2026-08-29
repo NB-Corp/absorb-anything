@@ -10,7 +10,7 @@ import {
   planAbsorbAgentsBlock,
 } from "./agents.js";
 import { PREFERRED_ENVELOPE_DIR } from "./constants.js";
-import { resolveEnvelopeContext } from "./envelope.js";
+import { type EnvelopeDirectory, resolveEnvelopeContext } from "./envelope.js";
 import { FrameworkAlreadyExistsError, FrameworkError, FrameworkNotFoundError } from "./errors.js";
 import { appendEvent } from "./events.js";
 import {
@@ -54,6 +54,12 @@ export interface InitFrameworkOptions {
   readonly privacy?: WorkspacePrivacy;
   readonly template?: string;
   readonly agents?: boolean;
+  /**
+   * Physical envelope directory to create. Library callers that own `.assay` as
+   * their native envelope pass it here; the absorb CLI always uses the
+   * preferred name and exposes no flag for this.
+   */
+  readonly envelope?: EnvelopeDirectory;
 }
 
 export interface InitFrameworkResult {
@@ -211,9 +217,10 @@ export async function initFramework(options: InitFrameworkOptions): Promise<Init
   const project = options.name ?? path.basename(root);
   const report = createEmptyReport();
   const mode = options.standalone ? "standalone" : "overlay";
+  const envelopeDirectory = options.envelope ?? PREFERRED_ENVELOPE_DIR;
   const layout = options.standalone
-    ? defaultStandaloneLayout(PREFERRED_ENVELOPE_DIR)
-    : defaultOverlayLayout(options.privacy ?? "private", PREFERRED_ENVELOPE_DIR);
+    ? defaultStandaloneLayout(envelopeDirectory)
+    : defaultOverlayLayout(options.privacy ?? "private", envelopeDirectory);
   const selected = await loadTemplate(options.template ?? "study");
   const expanded = expandTemplate(project, selected, layout);
   const templatePaths = new Set(expanded.files.map((file) => file.path.toLowerCase()));
@@ -224,12 +231,12 @@ export async function initFramework(options: InitFrameworkOptions): Promise<Init
     ...expanded.directories.map((entry) => workspacePhysicalRelativePath(layout, entry.path)),
     ...expanded.files.map((file) => workspacePhysicalRelativePath(layout, file.path)),
     ...coreFiles.map((file) => workspacePhysicalRelativePath(layout, file.path)),
-    `${PREFERRED_ENVELOPE_DIR}/manifest.json`,
-    `${PREFERRED_ENVELOPE_DIR}/managed-files.json`,
+    `${envelopeDirectory}/manifest.json`,
+    `${envelopeDirectory}/managed-files.json`,
   ];
   await assertTemplateWriteBoundary(root, physicalTargets);
   await ensureDir(root, root, report);
-  const envelope = path.join(root, PREFERRED_ENVELOPE_DIR);
+  const envelope = path.join(root, envelopeDirectory);
   await ensureDir(envelope, root, report);
   for (const logical of ["sources", "analyses", "knowledge", "systems"] as const) {
     await ensureDir(
@@ -263,13 +270,13 @@ export async function initFramework(options: InitFrameworkOptions): Promise<Init
     if (result === "written" && file.managed) installedCore.push(file);
   }
   const entries = manifestEntriesForScaffold(layout, expanded, coreFiles);
-  const manifest = defaultManifest(entries, PREFERRED_ENVELOPE_DIR);
+  const manifest = defaultManifest(entries, envelopeDirectory);
   manifest.layout = layout;
   manifest.layout.entries = entries;
   await saveManifest(root, manifest);
-  report.created_files.push(`${PREFERRED_ENVELOPE_DIR}/manifest.json`);
+  report.created_files.push(`${envelopeDirectory}/manifest.json`);
   await saveManagedFiles(root, receiptForTemplates(installedCore));
-  report.created_files.push(`${PREFERRED_ENVELOPE_DIR}/managed-files.json`);
+  report.created_files.push(`${envelopeDirectory}/managed-files.json`);
   const agents = await applyAbsorbAgentsBlock({
     root,
     mode: options.agents === false ? "skip" : "install",

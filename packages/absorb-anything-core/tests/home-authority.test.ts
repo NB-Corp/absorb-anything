@@ -68,6 +68,16 @@ describe("the home directory is config, not workspace authority", () => {
     expect(await loadManifest(target)).not.toBeNull();
   });
 
+  it("initializes a .assay envelope under that same home", async () => {
+    const home = await homeHoldingCloneRegistry();
+    const target = path.join(await projectUnderHome(home), "product");
+    await mkdir(target, { recursive: true });
+
+    await initFramework({ target, name: "Product", envelope: ".assay" });
+
+    expect(await loadManifest(target)).not.toBeNull();
+  });
+
   it.runIf(process.platform === "win32")(
     "recognizes the home when the ancestor path arrives as an 8.3 short name",
     async () => {
