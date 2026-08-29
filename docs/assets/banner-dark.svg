@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 360" role="img" aria-label="Absorb Anything - Study anything. Keep everything you learn.">
+  <g transform="translate(688 52)">
+    <rect x="0" y="0" width="64" height="64" fill="none" stroke="#E86A50" stroke-width="6"/>
+    <rect x="21" y="21" width="22" height="22" fill="#E86A50"/>
+  </g>
+  <text x="720" y="226" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="96" font-weight="700" letter-spacing="-2" fill="#E8E4DA">Absorb Anything</text>
+  <text x="720" y="292" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace" font-size="29" letter-spacing="1" fill="#9C978B">Study anything. Keep everything you learn.</text>
+</svg>

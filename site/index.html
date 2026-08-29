@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Absorb Anything · Study anything. Keep everything you learn.</title>
+<meta name="description" content="A local-first CLI that gives everything you study a home: checkouts, observations, analyses, and distilled knowledge, in plain files your repo owns.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nb-corp.github.io/absorb-anything/">
+<meta property="og:site_name" content="Absorb Anything">
+<meta property="og:title" content="Absorb Anything">
+<meta property="og:description" content="Study anything. Keep everything you learn.">
+<meta property="og:image" content="https://raw.githubusercontent.com/NB-Corp/absorb-anything/main/docs/assets/banner-dark.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Absorb Anything">
+<meta name="twitter:description" content="Study anything. Keep everything you learn.">
+<meta name="theme-color" content="#F7F6F1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' fill='none' stroke='%23BC3823' stroke-width='3'/%3E%3Crect x='12' y='12' width='8' height='8' fill='%23BC3823'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --paper: #F7F6F1;
+  --paper-2: #EFEDE5;
+  --ink: #211E1A;
+  --ink-2: #5C584E;
+  --ink-3: #6E6A5E;
+  --line: #DCD8CB;
+  --line-strong: #C4BFB0;
+  --accent: #BC3823;
+  --accent-hover: #9C2C1A;
+  --term-bg: #1B1915;
+  --term-bar: #25221C;
+  --term-line: #38342B;
+  --term-text: #EDE9DD;
+  --term-dim: #A8A394;
+  --term-accent: #E86A50;
+  --r-sm: 2px;
+  --r-md: 6px;
+  --font-display: "IBM Plex Sans Condensed", "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-x: clip;
+}
+
+::selection { background: var(--accent); color: var(--paper); }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { color: var(--accent-hover); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--paper-2);
+  padding: 0.08em 0.34em;
+  border-radius: var(--r-sm);
+  color: var(--ink);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+.wrap {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 10;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 0.6rem 1rem;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: top 160ms ease;
+}
+.skip:focus-visible { top: 1rem; }
+
+/* ---------- nav ---------- */
+
+.nav { border-bottom: 1px solid var(--line); }
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 64px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brand .mark { width: 20px; height: 20px; color: var(--accent); flex: none; }
+.brand-name {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 2.5vw, 1.6rem);
+}
+.nav-links a {
+  color: var(--ink-2);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* ---------- hero ---------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(3.5rem, 8vw, 6rem) clamp(3.5rem, 8vw, 6rem);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 128px);
+  opacity: 0.4;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 92%);
+  mask-image: linear-gradient(180deg, #000 0%, transparent 92%);
+  pointer-events: none;
+}
+
+.hero-mark {
+  position: absolute;
+  right: -7rem;
+  top: 6rem;
+  width: 32rem;
+  height: 32rem;
+  color: var(--ink);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.hero-inner { position: relative; }
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.1rem, 9vw, 6.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.9rem;
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.35rem, 3.2vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin: 0 0 1.4rem;
+}
+
+.lede {
+  max-width: 35rem;
+  margin: 0 0 2.1rem;
+  color: var(--ink-2);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--r-sm);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+.btn:hover { transform: translateY(-1px); }
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--paper);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.14);
+}
+.btn-primary:hover { background: var(--accent-hover); color: var(--paper); }
+
+.btn-ghost {
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  background: transparent;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- terminal demo ---------- */
+
+.demo { padding-block: 0 clamp(3.5rem, 8vw, 6rem); }
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: end;
+}
+
+.term-caption {
+  margin: 0 0 0.4rem;
+  max-width: 20rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--ink-3);
+}
+
+.term {
+  background: var(--term-bg);
+  border: 1px solid var(--term-line);
+  border-radius: var(--r-md);
+  box-shadow: 0 24px 60px -28px rgb(32 30 26 / 0.45);
+  overflow: hidden;
+}
+
+.term-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--term-bar);
+  border-bottom: 1px solid var(--term-line);
+  padding: 0.65rem 1rem;
+}
+.term-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #5A554A;
+  flex: none;
+}
+.term-title {
+  margin-left: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--term-dim);
+}
+
+.term-body {
+  margin: 0;
+  padding: 1.25rem 1.5rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  line-height: 1.75;
+  color: var(--term-dim);
+  overflow-x: auto;
+}
+.term-body .cmd { color: var(--term-text); }
+.term-body .p { color: var(--term-accent); font-weight: 600; }
+
+/* ---------- sections (ledger records) ---------- */
+
+.section {
+  border-top: 1px solid var(--line);
+  padding-block: clamp(3.5rem, 8vw, 6rem);
+  scroll-margin-top: 2rem;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 3.8vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.4rem;
+}
+
+/* ---------- loop ---------- */
+
+.loop-diagram {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 1.25rem;
+  row-gap: 0.9rem;
+  align-items: center;
+  margin-block: 2.2rem 2.6rem;
+}
+
+.station {
+  border: 1.5px solid var(--ink);
+  border-radius: var(--r-sm);
+  padding: 1.15rem 1rem;
+  text-align: center;
+}
+.station-name {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.station-sub {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-3);
+  justify-self: center;
+  text-align: center;
+}
+
+.b1 { grid-column: 1; grid-row: 1; }
+.s1 { grid-column: 1; grid-row: 2; }
+.a1 { grid-column: 2; grid-row: 1; }
+.b2 { grid-column: 3; grid-row: 1; }
+.s2 { grid-column: 3; grid-row: 2; }
+.a2 { grid-column: 4; grid-row: 1; }
+.b3 { grid-column: 5; grid-row: 1; }
+.s3 { grid-column: 5; grid-row: 2; }
+
+.loop-arrow { width: 54px; height: 22px; color: var(--accent); justify-self: center; }
+
+.loop-note {
+  margin: 0;
+  max-width: 42rem;
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+/* ---------- value sections ---------- */
+
+.value p {
+  margin: 0;
+  max-width: 38rem;
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+
+.v2 .value-inner { margin-left: auto; max-width: 40rem; }
+
+.v3 .value-inner { max-width: 46rem; }
+.v3 p { font-size: 1.2rem; max-width: 46rem; }
+
+/* ---------- install ---------- */
+
+.code-window {
+  max-width: 44rem;
+  background: var(--term-bg);
+  border: 1px solid var(--term-line);
+  border-radius: var(--r-md);
+  box-shadow: 0 24px 60px -28px rgb(32 30 26 / 0.45);
+  overflow: hidden;
+}
+.code-window pre {
+  margin: 0;
+  padding: 1.25rem 1.5rem 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  line-height: 1.8;
+  color: var(--term-text);
+  overflow-x: auto;
+}
+
+.install-note {
+  margin: 1.1rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-2);
+}
+
+/* ---------- pair ---------- */
+
+.pair-body {
+  margin: 0 0 3rem;
+  max-width: 40rem;
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+
+.slogan {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 7vw, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.slogan span { color: var(--accent); }
+
+/* ---------- footer ---------- */
+
+.footer {
+  border-top: 1px solid var(--line);
+  padding-block: 2.2rem 3rem;
+}
+
+.foot-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.foot-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.foot-brand .mark { width: 17px; height: 17px; color: var(--accent); }
+
+.foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+}
+.foot-links a {
+  color: var(--ink-2);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.foot-links a:hover { color: var(--accent); }
+
+.foot-note {
+  flex-basis: 100%;
+  margin: 0.4rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+
+/* ---------- mobile ---------- */
+
+@media (max-width: 767px) {
+  .hero-mark { width: 20rem; height: 20rem; right: -9rem; top: 3rem; }
+
+  .demo-grid { grid-template-columns: 1fr; align-items: start; }
+  .term-caption { max-width: none; margin-bottom: 0.25rem; }
+
+  .loop-diagram { grid-template-columns: 1fr; justify-items: center; row-gap: 0.6rem; }
+  .loop-diagram > * { grid-column: 1 !important; grid-row: auto !important; }
+  .station { width: min(100%, 22rem); }
+  .loop-arrow { transform: rotate(90deg); margin-block: 0.35rem; }
+  .station-sub { margin-bottom: 0.4rem; }
+
+  .v2 .value-inner { margin-left: 0; }
+  .v3 p { font-size: 1.1rem; }
+
+  .nav-links a { font-size: 0.82rem; }
+}
+
+/* ---------- motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+</style>
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Absorb Anything, back to top">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3.5" y="3.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="3"/><rect x="12" y="12" width="8" height="8" fill="currentColor"/></svg>
+      <span class="brand-name">Absorb Anything</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="https://github.com/NB-Corp/absorb-anything">GitHub</a>
+      <a href="https://github.com/NB-Corp/absorb-anything#readme">README</a>
+      <a href="https://github.com/NB-Corp/own-work">own-work</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <svg class="hero-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.1"/><rect x="12" y="12" width="8" height="8" fill="currentColor"/></svg>
+    <div class="wrap hero-inner">
+      <h1 class="wordmark">Absorb Anything</h1>
+      <p class="tagline">Study anything. Keep everything you learn.</p>
+      <p class="lede">A local-first CLI that gives everything you study a home: checkouts, observations, analyses, and distilled knowledge, in plain files your repo owns.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/NB-Corp/absorb-anything">View on GitHub</a>
+        <a class="btn btn-ghost" href="#install">Quick start</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo" aria-label="Terminal demo">
+    <div class="wrap demo-grid">
+      <p class="term-caption">Real output, byte for byte. Every record lands as plain files under <code>.absorb/</code>.</p>
+      <div class="term">
+        <div class="term-bar">
+          <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+          <span class="term-title">absorb · zsh</span>
+        </div>
+        <pre class="term-body"><code><span class="cmd"><span class="p">$</span> absorb add https://github.com/sindresorhus/slugify</span>
+Added source: .absorb/sources/slugify
+Observation: .absorb/sources/slugify/observations/20260828-7c318bd1aa4b.yaml
+Checkout: .absorb/sources/slugify/checkout
+Materials: .absorb/sources/slugify/materials
+Hint: Observe changes with `absorb sync`; preserve decision-critical bytes with `absorb capture`.
+
+<span class="cmd"><span class="p">$</span> absorb log slugify</span>
+Source log: slugify
+2026-08-28T19:59:18+08:00 add normal 20260828-7c318bd1aa4b
+  checkout-backed source added from https://github.com/sindresorhus/slugify</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section loop" id="loop" aria-labelledby="h-loop">
+    <div class="wrap">
+      <h2 id="h-loop">The loop</h2>
+      <div class="loop-diagram">
+        <div class="station b1"><span class="station-name">sources/</span></div>
+        <span class="station-sub s1">absorb it</span>
+        <svg class="loop-arrow a1" viewBox="0 0 56 22" aria-hidden="true"><path d="M2 11 H42" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M54 11 L40 3.5 V18.5 Z" fill="currentColor"/></svg>
+        <div class="station b2"><span class="station-name">analyses/</span></div>
+        <span class="station-sub s2">decide on it</span>
+        <svg class="loop-arrow a2" viewBox="0 0 56 22" aria-hidden="true"><path d="M2 11 H42" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M54 11 L40 3.5 V18.5 Z" fill="currentColor"/></svg>
+        <div class="station b3"><span class="station-name">knowledge/</span></div>
+        <span class="station-sub s3">keep what survived</span>
+      </div>
+      <p class="loop-note">Files all the way down: no server, no database, no account. Everything sits in a single <code>.absorb/</code> directory inside the repo you already work in.</p>
+    </div>
+  </section>
+
+  <section class="section value v1" aria-labelledby="h-clone">
+    <div class="wrap">
+      <div class="value-inner">
+        <h2 id="h-clone">Clone once. Reference everywhere.</h2>
+        <p>The cost of studying across projects is not disk space, it is re-reading. One workspace owns a source&rsquo;s home; every other workspace links to it with a few dozen bytes, and writes flow through to the real home.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section value v2" aria-labelledby="h-evidence">
+    <div class="wrap">
+      <div class="value-inner">
+        <h2 id="h-evidence">Evidence priced by the decision.</h2>
+        <p>Reading around? An entry is an alias and a date. Adopting or rejecting? Pin the commit. Need bytes to survive upstream deletion? Capture them with an integrity hash. Record what the decision needs, not everything the tool can measure.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section value v3" aria-labelledby="h-agents">
+    <div class="wrap">
+      <div class="value-inner">
+        <h2 id="h-agents">Built for AI agents.</h2>
+        <p><code>absorb prime</code> gives an agent the semantics in one screen. <code>absorb explain</code> covers each object: why it exists, when not to use it, common misuses. Mutating commands end with a point-of-use hint, and errors state the correct model instead of just refusing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section install" id="install" aria-labelledby="h-install">
+    <div class="wrap">
+      <h2 id="h-install">Install</h2>
+      <div class="code-window">
+        <pre><code>git clone https://github.com/NB-Corp/absorb-anything
+cd absorb-anything
+pnpm install &amp;&amp; pnpm build
+alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"</code></pre>
+      </div>
+      <p class="install-note">Pre-release: not on npm yet. Requires Node &gt;= 22.13 and pnpm 11.</p>
+    </div>
+  </section>
+
+  <section class="section pair" aria-labelledby="h-pair">
+    <div class="wrap">
+      <h2 id="h-pair">Half of a pair.</h2>
+      <p class="pair-body"><a href="https://github.com/NB-Corp/own-work">own-work</a> is the build half: tasks, roadmaps, and specs that survive the session, on the same on-disk workspace format.</p>
+      <p class="slogan">Absorb anything. <span>Build Your Own.</span></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3.5" y="3.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="3"/><rect x="12" y="12" width="8" height="8" fill="currentColor"/></svg>
+      <span>Absorb Anything</span>
+    </div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="https://github.com/NB-Corp/absorb-anything/blob/main/LICENSE">MIT License</a>
+      <a href="https://github.com/NB-Corp/absorb-anything">GitHub</a>
+      <a href="https://github.com/NB-Corp/absorb-anything#readme">README</a>
+      <a href="https://github.com/NB-Corp/own-work">own-work</a>
+    </nav>
+    <p class="foot-note">&copy; 2026 Absorb Anything contributors</p>
+  </div>
+</footer>
+
+</body>
+</html>

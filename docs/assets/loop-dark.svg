@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 220" role="img" aria-label="The loop: sources, absorb it; analyses, decide on it; knowledge, keep what survived.">
+  <g font-family="ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace">
+    <rect x="30" y="38" width="300" height="92" rx="2" fill="none" stroke="#E8E4DA" stroke-width="2"/>
+    <rect x="450" y="38" width="300" height="92" rx="2" fill="none" stroke="#E8E4DA" stroke-width="2"/>
+    <rect x="870" y="38" width="300" height="92" rx="2" fill="none" stroke="#E8E4DA" stroke-width="2"/>
+    <text x="180" y="95" text-anchor="middle" font-size="30" font-weight="600" fill="#E8E4DA">sources/</text>
+    <text x="600" y="95" text-anchor="middle" font-size="30" font-weight="600" fill="#E8E4DA">analyses/</text>
+    <text x="1020" y="95" text-anchor="middle" font-size="30" font-weight="600" fill="#E8E4DA">knowledge/</text>
+    <text x="180" y="176" text-anchor="middle" font-size="21" fill="#9C978B">absorb it</text>
+    <text x="600" y="176" text-anchor="middle" font-size="21" fill="#9C978B">decide on it</text>
+    <text x="1020" y="176" text-anchor="middle" font-size="21" fill="#9C978B">keep what survived</text>
+    <path d="M352 84 H416" fill="none" stroke="#E86A50" stroke-width="2.5"/>
+    <path d="M432 84 L414 75 V93 Z" fill="#E86A50"/>
+    <path d="M772 84 H836" fill="none" stroke="#E86A50" stroke-width="2.5"/>
+    <path d="M852 84 L834 75 V93 Z" fill="#E86A50"/>
+  </g>
+</svg>

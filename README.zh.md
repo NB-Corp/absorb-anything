@@ -1,6 +1,23 @@
-# Absorb Anything
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.svg">
+  <img src="docs/assets/banner-light.svg" alt="Absorb Anything" width="720">
+</picture>
 
 **什么都能吸纳，学到的都留下。**
+
+[![CI](https://github.com/NB-Corp/absorb-anything/actions/workflows/ci.yml/badge.svg)](https://github.com/NB-Corp/absorb-anything/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D22.13-brightgreen.svg)](https://nodejs.org)
+
+[网站](https://nb-corp.github.io/absorb-anything/) · [安装](#安装) · [一个闭环](#一个闭环) · [own-work（建设半边）](https://github.com/NB-Corp/own-work)
+
+[English](./README.md) · 简体中文
+
+</div>
+
+---
 
 这是一个 local-first 的 CLI，写给一直在吸纳新东西的人——以及 AI agent。要评估的代码库、准备借鉴的库、一份参考实现、论文和它的配套仓库：把它指向你正在研读的任何材料，这份材料就有了一个**家**：checkout、观察记录、分析和沉淀下来的知识都攒在这里，而不是随着终端关闭、下一个对话从零开始而蒸发。
 
@@ -32,10 +49,12 @@ alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"
 
 ## 一个闭环
 
-```
-sources/ ──▶ analyses/ ──▶ knowledge/
-  吸纳它       对它下判断      留下经得住的
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/loop-dark.svg">
+    <img src="docs/assets/loop-light.svg" alt="sources/（吸纳它）→ analyses/（对它下判断）→ knowledge/（留下经得住的）" width="640">
+  </picture>
+</p>
 
 **Source** 是任何保持来源与变化可读的外部材料：会同步的 git checkout，或者其他任何东西的一次性拷贝。**Analysis** 是读代码、下判断的工作台面。**Knowledge** 是判断之后活下来、值得复用的东西。从头到尾都是文件：没有服务、没有数据库、不用注册。所有记录都收在你现有仓库的一个 `.absorb/` 目录里；想给证据单开一个专用仓，`absorb init --standalone`。
 

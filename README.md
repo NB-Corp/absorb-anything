@@ -1,6 +1,23 @@
-# Absorb Anything
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.svg">
+  <img src="docs/assets/banner-light.svg" alt="Absorb Anything" width="720">
+</picture>
 
 **Study anything. Keep everything you learn.**
+
+[![CI](https://github.com/NB-Corp/absorb-anything/actions/workflows/ci.yml/badge.svg)](https://github.com/NB-Corp/absorb-anything/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D22.13-brightgreen.svg)](https://nodejs.org)
+
+[Website](https://nb-corp.github.io/absorb-anything/) · [Install](#install) · [The loop](#the-loop) · [own-work (build half)](https://github.com/NB-Corp/own-work)
+
+English · [简体中文](./README.zh.md)
+
+</div>
+
+---
 
 Absorb Anything is a local-first CLI for people (and AI agents) who are always absorbing something new — a codebase to evaluate, a library to build on, a reference implementation, a paper and its companion repo. Point it at whatever you're studying and that material gets a **home**: a place where checkouts, observations, analyses, and distilled knowledge accumulate, instead of evaporating when the terminal closes and the next chat session starts from zero.
 
@@ -34,10 +51,12 @@ alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"
 
 Everything in Absorb Anything serves one loop:
 
-```
-sources/ ──▶ analyses/ ──▶ knowledge/
- absorb it    decide on it    keep what survived
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/loop-dark.svg">
+    <img src="docs/assets/loop-light.svg" alt="sources/ (absorb it) → analyses/ (decide on it) → knowledge/ (keep what survived)" width="640">
+  </picture>
+</p>
 
 A **source** is any external material kept where its origin and its changes stay readable — a git checkout that syncs, or a one-time copy of anything else. An **analysis** is the working surface where you read it and reach a decision. **Knowledge** is what survived the decision and is worth reusing. Files all the way down: no server, no database, no account. Everything sits in a single `.absorb/` directory inside the repo you already work in; if evidence deserves a dedicated repo of its own, that's `absorb init --standalone`.
 
