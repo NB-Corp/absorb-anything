@@ -5,8 +5,6 @@
   <img src="docs/assets/banner-light.svg" alt="Absorb Anything" width="720">
 </picture>
 
-**Study anything. Keep everything you learn.**
-
 [![CI](https://github.com/NB-Corp/absorb-anything/actions/workflows/ci.yml/badge.svg)](https://github.com/NB-Corp/absorb-anything/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D22.13-brightgreen.svg)](https://nodejs.org)
