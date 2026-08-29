@@ -1,30 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Absorb Anything · Study anything. Keep everything you learn.</title>
-<meta name="description" content="A local-first CLI that gives everything you study a home: checkouts, observations, analyses, and distilled knowledge, in plain files your repo owns.">
-<link rel="canonical" href="https://nb-corp.github.io/absorb-anything/">
+<title>Absorb Anything · 什么都能吸纳，学到的都留下。</title>
+<meta name="description" content="一个 local-first CLI，给你研读的一切安一个家：checkout、观察记录、分析、沉淀下来的知识，全是你仓库里的普通文件。">
+<link rel="canonical" href="https://nb-corp.github.io/absorb-anything/zh.html">
 <link rel="alternate" hreflang="en" href="https://nb-corp.github.io/absorb-anything/">
 <link rel="alternate" hreflang="zh-CN" href="https://nb-corp.github.io/absorb-anything/zh.html">
 <link rel="alternate" hreflang="x-default" href="https://nb-corp.github.io/absorb-anything/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://nb-corp.github.io/absorb-anything/">
+<meta property="og:url" content="https://nb-corp.github.io/absorb-anything/zh.html">
 <meta property="og:site_name" content="Absorb Anything">
 <meta property="og:title" content="Absorb Anything">
-<meta property="og:description" content="Study anything. Keep everything you learn.">
+<meta property="og:description" content="什么都能吸纳，学到的都留下。">
 <meta property="og:image" content="https://raw.githubusercontent.com/NB-Corp/absorb-anything/main/docs/assets/banner-dark.svg">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Absorb Anything">
-<meta name="twitter:description" content="Study anything. Keep everything you learn.">
+<meta name="twitter:description" content="什么都能吸纳，学到的都留下。">
 <meta name="theme-color" content="#F7F6F1">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' fill='none' stroke='%23BC3823' stroke-width='3'/%3E%3Crect x='12' y='12' width='8' height='8' fill='%23BC3823'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap">
 <style>
 :root {
   --paper: #F7F6F1;
@@ -44,8 +44,8 @@
   --term-accent: #E86A50;
   --r-sm: 2px;
   --r-md: 6px;
-  --font-display: "IBM Plex Sans Condensed", "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-body: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "IBM Plex Sans Condensed", "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 }
 
@@ -203,8 +203,8 @@ pre code {
   font-family: var(--font-display);
   font-weight: 500;
   font-size: clamp(1.5rem, 3.6vw, 2.25rem);
-  line-height: 1.15;
-  letter-spacing: -0.005em;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
   color: var(--ink);
   margin: 0 0 1.5rem;
 }
@@ -214,7 +214,7 @@ pre code {
   margin: 0 0 2.2rem;
   color: var(--ink-2);
   font-size: 1.15rem;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .cta-row {
@@ -267,7 +267,7 @@ pre code {
   max-width: 20rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  line-height: 1.7;
+  line-height: 1.8;
   color: var(--ink-3);
 }
 
@@ -325,8 +325,8 @@ h2 {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: clamp(2.4rem, 5.5vw, 3.75rem);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
   margin: 0 0 1.6rem;
 }
 
@@ -377,7 +377,7 @@ h2 {
   margin: 0;
   max-width: 42rem;
   font-size: 1.15rem;
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--ink-2);
 }
 
@@ -388,13 +388,13 @@ h2 {
   max-width: 38rem;
   color: var(--ink-2);
   font-size: 1.1rem;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .v2 .value-inner { margin-left: auto; max-width: 40rem; }
 
 .v3 .value-inner { max-width: 50rem; }
-.v3 p { font-size: 1.35rem; line-height: 1.65; max-width: 50rem; }
+.v3 p { font-size: 1.35rem; line-height: 1.7; max-width: 50rem; }
 
 /* ---------- install ---------- */
 
@@ -444,7 +444,7 @@ h2 {
   max-width: 42rem;
   color: var(--ink-2);
   font-size: 1.1rem;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .slogan {
@@ -537,18 +537,18 @@ h2 {
 </style>
 </head>
 <body id="top">
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main">跳到正文</a>
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="#top" aria-label="Absorb Anything, back to top">
+    <a class="brand" href="#top" aria-label="Absorb Anything，返回顶部">
       <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3.5" y="3.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="3"/><rect x="12" y="12" width="8" height="8" fill="currentColor"/></svg>
       <span class="brand-name">Absorb Anything</span>
     </a>
-    <nav class="nav-links" aria-label="Primary">
+    <nav class="nav-links" aria-label="主导航">
       <a href="https://github.com/NB-Corp/absorb-anything">GitHub</a>
       <a href="https://github.com/NB-Corp/own-work">own-work</a>
-      <a class="lang" href="./zh.html" hreflang="zh-CN" lang="zh-CN">中文</a>
+      <a class="lang" href="./" hreflang="en" lang="en">English</a>
     </nav>
   </div>
 </header>
@@ -559,18 +559,18 @@ h2 {
     <svg class="hero-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" fill="none" stroke="#211E1A" stroke-opacity="0.09" stroke-width="1"/><rect x="12" y="12" width="8" height="8" fill="#BC3823" fill-opacity="0.25"/></svg>
     <div class="wrap hero-inner">
       <h1 class="wordmark">Absorb <span>Anything</span></h1>
-      <p class="tagline">Study anything. Keep everything you learn.</p>
-      <p class="lede">A local-first CLI that gives everything you study a home: checkouts, observations, analyses, and distilled knowledge, in plain files your repo owns.</p>
+      <p class="tagline">什么都能吸纳，学到的都留下。</p>
+      <p class="lede">一个 local-first CLI，给你研读的一切安一个家：checkout、观察记录、分析、沉淀下来的知识，全是你仓库里的普通文件。</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/NB-Corp/absorb-anything">View on GitHub</a>
-        <a class="btn btn-ghost" href="#install">Quick start</a>
+        <a class="btn btn-primary" href="https://github.com/NB-Corp/absorb-anything">去 GitHub</a>
+        <a class="btn btn-ghost" href="#install">快速开始</a>
       </div>
     </div>
   </section>
 
-  <section class="demo" aria-label="Terminal demo">
+  <section class="demo" aria-label="终端演示">
     <div class="wrap demo-grid">
-      <p class="term-caption">Real output, byte for byte. Every record lands as plain files under <code>.absorb/</code>.</p>
+      <p class="term-caption">真实输出，一字节不差。每条记录都落成 <code>.absorb/</code> 下的普通文件。</p>
       <div class="term">
         <div class="term-bar">
           <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
@@ -593,26 +593,26 @@ Source log: slugify
 
   <section class="section loop" id="loop" aria-labelledby="h-loop">
     <div class="wrap">
-      <h2 id="h-loop">The loop</h2>
+      <h2 id="h-loop">一个闭环</h2>
       <div class="loop-diagram">
         <div class="station b1"><span class="station-name">sources/</span></div>
-        <span class="station-sub s1">absorb it</span>
+        <span class="station-sub s1">吸纳它</span>
         <svg class="loop-arrow a1" viewBox="0 0 64 24" aria-hidden="true"><path d="M2 12 H50" fill="none" stroke="currentColor" stroke-width="3"/><path d="M62 12 L48 4.5 V19.5 Z" fill="currentColor"/></svg>
         <div class="station b2"><span class="station-name">analyses/</span></div>
-        <span class="station-sub s2">decide on it</span>
+        <span class="station-sub s2">对它下判断</span>
         <svg class="loop-arrow a2" viewBox="0 0 64 24" aria-hidden="true"><path d="M2 12 H50" fill="none" stroke="currentColor" stroke-width="3"/><path d="M62 12 L48 4.5 V19.5 Z" fill="currentColor"/></svg>
         <div class="station b3"><span class="station-name">knowledge/</span></div>
-        <span class="station-sub s3">keep what survived</span>
+        <span class="station-sub s3">留下经得住的</span>
       </div>
-      <p class="loop-note">Files all the way down: no server, no database, no account. Everything sits in a single <code>.absorb/</code> directory inside the repo you already work in.</p>
+      <p class="loop-note">从头到尾都是文件：没有服务、没有数据库、不用注册。所有记录都收在你现有仓库的一个 <code>.absorb/</code> 目录里。</p>
     </div>
   </section>
 
   <section class="section value v1" aria-labelledby="h-clone">
     <div class="wrap">
       <div class="value-inner">
-        <h2 id="h-clone">Clone once. Reference everywhere.</h2>
-        <p>The cost of studying across projects is not disk space, it is re-reading. One workspace owns a source&rsquo;s home; every other workspace links to it with a few dozen bytes, and writes flow through to the real home.</p>
+        <h2 id="h-clone">Clone 一次，处处引用。</h2>
+        <p>跨项目研读的成本不是磁盘，是重复读。一个工作区拥有 source 的家，其他工作区用几十字节引用它，写操作穿透到真正的家。</p>
       </div>
     </div>
   </section>
@@ -620,8 +620,8 @@ Source log: slugify
   <section class="section value v2" aria-labelledby="h-evidence">
     <div class="wrap">
       <div class="value-inner">
-        <h2 id="h-evidence">Evidence priced by the decision.</h2>
-        <p>Reading around? An entry is an alias and a date. Adopting or rejecting? Pin the commit. Need bytes to survive upstream deletion? Capture them with an integrity hash. Record what the decision needs, not everything the tool can measure.</p>
+        <h2 id="h-evidence">证据按决策计价。</h2>
+        <p>随手翻翻？一条记录就是别名加日期。要采用或否决？pin 一个 commit。字节要在上游消失后活下来？带完整性哈希快照。记录决策需要的，而不是工具能测的。</p>
       </div>
     </div>
   </section>
@@ -629,29 +629,29 @@ Source log: slugify
   <section class="section value v3" aria-labelledby="h-agents">
     <div class="wrap">
       <div class="value-inner">
-        <h2 id="h-agents">Built for AI agents.</h2>
-        <p><code>absorb prime</code> gives an agent the semantics in one screen. <code>absorb explain</code> covers each object: why it exists, when not to use it, common misuses. Mutating commands end with a point-of-use hint, and errors state the correct model instead of just refusing.</p>
+        <h2 id="h-agents">为 AI agent 而生。</h2>
+        <p><code>absorb prime</code> 一屏给足语义；<code>absorb explain</code> 讲清每个对象为什么存在、何时不该用、常见误用。写操作结尾附使用现场提示，报错直接陈述正确模型而不是光拒绝。</p>
       </div>
     </div>
   </section>
 
   <section class="section install" id="install" aria-labelledby="h-install">
     <div class="wrap">
-      <h2 id="h-install">Install</h2>
+      <h2 id="h-install">安装</h2>
       <div class="code-window">
         <pre><code>git clone https://github.com/NB-Corp/absorb-anything
 cd absorb-anything
 pnpm install &amp;&amp; pnpm build
 alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"</code></pre>
       </div>
-      <p class="install-note">Pre-release: not on npm yet. Requires Node &gt;= 22.13 and pnpm 11.</p>
+      <p class="install-note">预发布：尚未上 npm。需要 Node &gt;= 22.13 与 pnpm 11。</p>
     </div>
   </section>
 
   <section class="section pair" aria-labelledby="h-workflow">
     <div class="wrap">
-      <h2 id="h-workflow">Bring your own workflow.</h2>
-      <p class="pair-body">Absorb Anything claims exactly one thing: the study ledger in <code>.absorb/</code>. No task format to adopt, no prompts to swap. <a href="https://github.com/obra/superpowers">superpowers</a>, <a href="https://github.com/mindfold-ai/Trellis">Trellis</a>, <a href="https://github.com/Fission-AI/OpenSpec">OpenSpec</a>, or your own conventions keep working untouched; those systems decide what gets built, this one keeps what you learned along the way. Want the build half on the same on-disk format? <a href="https://github.com/NB-Corp/own-work">own-work</a> is the pair we built for it.</p>
+      <h2 id="h-workflow">带着你现有的工作流来。</h2>
+      <p class="pair-body">Absorb Anything 只认领一样东西：<code>.absorb/</code> 里的研读台账。不定义任务格式，也不要求你换提示词。<a href="https://github.com/obra/superpowers">superpowers</a>、<a href="https://github.com/mindfold-ai/Trellis">Trellis</a>、<a href="https://github.com/Fission-AI/OpenSpec">OpenSpec</a> 或自家约定照常运转：那些系统决定要建什么，这个工具留住你一路学到的东西。想要同一套磁盘格式上的建设半边？<a href="https://github.com/NB-Corp/own-work">own-work</a> 就是为此配的另一半。</p>
       <p class="slogan">Absorb anything. <span>Build Your Own.</span></p>
     </div>
   </section>
@@ -664,14 +664,14 @@ alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"</code></pre>
       <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3.5" y="3.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="3"/><rect x="12" y="12" width="8" height="8" fill="currentColor"/></svg>
       <span>Absorb Anything</span>
     </div>
-    <nav class="foot-links" aria-label="Footer">
+    <nav class="foot-links" aria-label="页脚">
       <a href="https://github.com/NB-Corp/absorb-anything/blob/main/LICENSE">MIT License</a>
       <a href="https://github.com/NB-Corp/absorb-anything">GitHub</a>
-      <a href="https://github.com/NB-Corp/absorb-anything#readme">README</a>
+      <a href="https://github.com/NB-Corp/absorb-anything/blob/main/README.zh.md">README</a>
       <a href="https://github.com/NB-Corp/own-work">own-work</a>
-      <a class="lang" href="./zh.html" hreflang="zh-CN" lang="zh-CN">中文</a>
+      <a class="lang" href="./" hreflang="en" lang="en">English</a>
     </nav>
-    <p class="foot-note">&copy; 2026 Absorb Anything contributors</p>
+    <p class="foot-note">&copy; 2026 Absorb Anything 贡献者</p>
   </div>
 </footer>
 

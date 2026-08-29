@@ -92,9 +92,11 @@ absorb explain source   # why an object exists, when not to use it, common misus
 
 Mutating commands end with a one-line reminder of the rule most often broken, and error messages state the correct model instead of just refusing. Start a session with `absorb prime` and the agent gets the semantics before it gets the chance to misread them.
 
-## Part of a pair
+## Bring your own workflow
 
-Absorb Anything is the study half of a two-tool suite. [`own-work`](https://github.com/NB-Corp/own-work) is the build half: tasks, roadmaps, specs, and the systems you're building, on the same on-disk workspace format. Use either alone, or run both over one `.absorb/` directory.
+Absorb Anything claims exactly one thing: the study ledger in `.absorb/`. It has no task format to adopt and no prompts to swap, so it runs untouched alongside [superpowers](https://github.com/obra/superpowers), [Trellis](https://github.com/mindfold-ai/Trellis), [OpenSpec](https://github.com/Fission-AI/OpenSpec), or whatever conventions your repo already follows. Those systems decide what gets built; this one keeps what you learned along the way.
+
+Want the build half on the same on-disk format, with tasks, roadmaps, and specs that survive the session? [`own-work`](https://github.com/NB-Corp/own-work) is the pair we built for it. Use either alone, or run both over one `.absorb/` directory.
 
 **Absorb anything. Build Your Own.**
 

@@ -109,9 +109,11 @@ absorb explain source   # 对象为什么存在、何时不该用、常见误用
 
 写操作结尾附一行最常被违反的规则，报错直接陈述正确模型而不是光拒绝。会话开局跑一次 `absorb prime`，agent 在有机会误读之前就拿到了语义。
 
-## 成对使用
+## 带着你现有的工作流来
 
-Absorb Anything 是双工具套件的研读半边。[`own-work`](https://github.com/NB-Corp/own-work) 是建设半边：task、roadmap、spec 与你正在建的 system，跑在同一套磁盘格式上。单用一半，或者让两个工具共用同一个 `.absorb/` 目录。
+Absorb Anything 只认领一样东西：`.absorb/` 里的研读台账。它不定义任务格式，也不要求你换提示词，所以和 [superpowers](https://github.com/obra/superpowers)、[Trellis](https://github.com/mindfold-ai/Trellis)、[OpenSpec](https://github.com/Fission-AI/OpenSpec) 或你仓库里已有的任何约定并行不悖：那些系统决定要建什么，这个工具留住你一路学到的东西。
+
+想要同一套磁盘格式上的建设半边——跨会话存活的 task、roadmap 和 spec？[`own-work`](https://github.com/NB-Corp/own-work) 就是为此配的另一半。单用其一，或让两个工具共用同一个 `.absorb/` 目录。
 
 **Absorb anything. Build Your Own.**
 
