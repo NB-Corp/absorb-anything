@@ -1,3 +1,4 @@
+import type { BigIntStats } from "node:fs";
 import type { FileHandle } from "node:fs/promises";
 import { lstat, open, realpath } from "node:fs/promises";
 import path from "node:path";
@@ -8,10 +9,10 @@ export interface IdentitySafePath {
   readonly windowsShortPathAlias: boolean;
 }
 
-function sameOpenFileIdentity(
-  left: Awaited<ReturnType<FileHandle["stat"]>>,
-  right: Awaited<ReturnType<FileHandle["stat"]>>,
-): boolean {
+// Compare with bigint stats: NTFS file IDs are 64-bit with the MFT sequence
+// number in the high bits, so two distinct files can collide once coerced to
+// a 53-bit-mantissa double, defeating replacement detection.
+function sameOpenFileIdentity(left: BigIntStats, right: BigIntStats): boolean {
   return left.dev === right.dev && left.ino === right.ino;
 }
 
@@ -100,7 +101,10 @@ export async function identitySafePathNamesOpenFile(
 
   const verifier = await open(target, "r");
   try {
-    const [openedInfo, verifierInfo] = await Promise.all([handle.stat(), verifier.stat()]);
+    const [openedInfo, verifierInfo] = await Promise.all([
+      handle.stat({ bigint: true }),
+      verifier.stat({ bigint: true }),
+    ]);
     if (
       !openedInfo.isFile() ||
       !verifierInfo.isFile() ||
