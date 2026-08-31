@@ -2,13 +2,7 @@
   "name": "absorb-anything-core",
   "version": "0.1.1",
   "description": "Envelope, Source, Analysis, and Knowledge APIs for Absorb Anything.",
-  "keywords": [
-    "absorb-anything",
-    "evidence",
-    "provenance",
-    "workspace",
-    "local-first"
-  ],
+  "keywords": ["absorb-anything", "evidence", "provenance", "workspace", "local-first"],
   "homepage": "https://github.com/NB-Corp/absorb-anything#readme",
   "repository": {
     "type": "git",
@@ -26,10 +20,7 @@
     "./schemas": "./dist/schemas/index.js"
   },
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "templates"
-  ],
+  "files": ["dist", "templates"],
   "scripts": {
     "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",
     "test": "vitest run --config vitest.config.ts",
