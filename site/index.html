@@ -639,12 +639,10 @@ Source log: slugify
     <div class="wrap">
       <h2 id="h-install">Install</h2>
       <div class="code-window">
-        <pre><code>git clone https://github.com/NB-Corp/absorb-anything
-cd absorb-anything
-pnpm install &amp;&amp; pnpm build
-alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"</code></pre>
+        <pre><code>npm install -g absorb-anything
+absorb init          # overlay by default — your repo stays yours</code></pre>
       </div>
-      <p class="install-note">Pre-release: not on npm yet. Requires Node &gt;= 22.13 and pnpm 11.</p>
+      <p class="install-note">Requires Node &gt;= 22.13. Building from source? Clone the repo, then <code>pnpm install &amp;&amp; pnpm build</code>.</p>
     </div>
   </section>
 

@@ -29,22 +29,22 @@ absorb analysis new "调度器值得采用吗" --for-source qiskit
 absorb knowledge add pattern "Pulse schedule 是不可变的计划对象"
 ```
 
-> 状态：0.1.0 预发布，尚未上 npm，请按下面的步骤从源码构建。上面的命令面是首个版本的既定契约，不是效果图。
+> 状态：0.1.0，[已上 npm](https://www.npmjs.com/package/absorb-anything)。上面的命令面是首个版本的既定契约，不是效果图。
 
 ## 安装
 
-需要 Node >= 22.13 与 pnpm 11。
+需要 Node >= 22.13。
+
+```bash
+npm install -g absorb-anything
+```
+
+想改代码就从源码构建，CLI 在 `packages/absorb-anything/dist/cli.js`：
 
 ```bash
 git clone https://github.com/NB-Corp/absorb-anything
 cd absorb-anything
 pnpm install && pnpm build
-```
-
-CLI 在 `packages/absorb-anything/dist/cli.js`。怎么挂上 PATH 随你，一个 alias 就够：
-
-```bash
-alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"
 ```
 
 ## 一个闭环

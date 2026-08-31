@@ -27,22 +27,22 @@ absorb analysis new "Adopt the scheduler?" --for-source qiskit
 absorb knowledge add pattern "Pulse schedules are immutable plans"
 ```
 
-> Status: 0.1.0, pre-release, not on npm yet. Build from source with the steps below. The commands above are the committed surface for the first release, not a mockup.
+> Status: 0.1.0, [on npm](https://www.npmjs.com/package/absorb-anything). The commands above are the committed surface for the first release, not a mockup.
 
 ## Install
 
-Requires Node >= 22.13 and pnpm 11.
+Requires Node >= 22.13.
+
+```bash
+npm install -g absorb-anything
+```
+
+To hack on it instead, clone and build; the CLI lands at `packages/absorb-anything/dist/cli.js`:
 
 ```bash
 git clone https://github.com/NB-Corp/absorb-anything
 cd absorb-anything
 pnpm install && pnpm build
-```
-
-The CLI is now at `packages/absorb-anything/dist/cli.js`. Put it on your PATH however you like — an alias is enough:
-
-```bash
-alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"
 ```
 
 ## The loop

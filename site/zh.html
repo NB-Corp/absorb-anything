@@ -639,12 +639,10 @@ Source log: slugify
     <div class="wrap">
       <h2 id="h-install">安装</h2>
       <div class="code-window">
-        <pre><code>git clone https://github.com/NB-Corp/absorb-anything
-cd absorb-anything
-pnpm install &amp;&amp; pnpm build
-alias absorb="node $PWD/packages/absorb-anything/dist/cli.js"</code></pre>
+        <pre><code>npm install -g absorb-anything
+absorb init          # 默认叠加模式——你的仓库还是你的</code></pre>
       </div>
-      <p class="install-note">预发布：尚未上 npm。需要 Node &gt;= 22.13 与 pnpm 11。</p>
+      <p class="install-note">需要 Node &gt;= 22.13。想从源码构建？clone 仓库后 <code>pnpm install &amp;&amp; pnpm build</code>。</p>
     </div>
   </section>
 
