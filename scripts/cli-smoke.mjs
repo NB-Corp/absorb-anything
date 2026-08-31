@@ -14,8 +14,8 @@ const cliPackage = JSON.parse(
 const corePackage = JSON.parse(
   await readFile(path.join(root, "packages", "absorb-anything-core", "package.json"), "utf8"),
 );
-assert.equal(cliPackage.version, "0.1.0");
-assert.equal(corePackage.version, "0.1.0");
+assert.equal(cliPackage.version, "0.1.2");
+assert.equal(corePackage.version, "0.1.2");
 
 const temporary = await mkdtemp(path.join(os.tmpdir(), "absorb-smoke-"));
 const input = await mkdtemp(path.join(os.tmpdir(), "absorb-smoke-input-"));

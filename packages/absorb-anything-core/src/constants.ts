@@ -1,5 +1,5 @@
 /** npm product version. */
-export const PRODUCT_VERSION = "0.1.0";
+export const PRODUCT_VERSION = "0.1.2";
 /** Persisted envelope version retained from the compatible on-disk format. */
 export const CURRENT_VERSION = "0.14.0";
 export const LAYOUT_VERSION = 8;

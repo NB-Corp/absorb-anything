@@ -29,7 +29,7 @@ absorb analysis new "调度器值得采用吗" --for-source qiskit
 absorb knowledge add pattern "Pulse schedule 是不可变的计划对象"
 ```
 
-> 状态：0.1.0，[已上 npm](https://www.npmjs.com/package/absorb-anything)。上面的命令面是首个版本的既定契约，不是效果图。
+> 状态：0.1.2，[已上 npm](https://www.npmjs.com/package/absorb-anything)。上面的命令面是首个版本的既定契约，不是效果图。
 
 ## 安装
 

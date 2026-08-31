@@ -1,6 +1,6 @@
 {
   "name": "absorb-anything",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "CLI for absorbing external material into evidence, analysis, and reusable knowledge.",
   "keywords": [
     "cli",
@@ -20,9 +20,15 @@
   "bugs": "https://github.com/NB-Corp/absorb-anything/issues",
   "license": "MIT",
   "type": "module",
-  "engines": { "node": ">=22.13.0" },
-  "bin": { "absorb": "./dist/cli.js" },
-  "exports": { ".": "./dist/index.js" },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "bin": {
+    "absorb": "./dist/cli.js"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "types": "./dist/index.d.ts",
   "files": ["dist"],
   "scripts": {
@@ -32,7 +38,7 @@
   },
   "dependencies": {
     "@commander-js/extra-typings": "^12.1.0",
-    "commander": "^12.1.0",
-    "absorb-anything-core": "workspace:*"
+    "absorb-anything-core": "workspace:*",
+    "commander": "^12.1.0"
   }
 }

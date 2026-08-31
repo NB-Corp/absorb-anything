@@ -12,7 +12,7 @@ absorb analysis new "Adopt the scheduler?" --for-source qiskit
 absorb knowledge add pattern "Pulse schedules are immutable plans"
 ```
 
-> Status: 0.1.0, [on npm](https://www.npmjs.com/package/absorb-anything). The commands above are the committed surface for the first release, not a mockup.
+> Status: 0.1.2, [on npm](https://www.npmjs.com/package/absorb-anything). The commands above are the committed surface for the first release, not a mockup.
 
 ## Install
 
